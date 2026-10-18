@@ -1,0 +1,8 @@
+{
+  "name": "Hóa Học 7: Khám Phá Nguyên Tử & Bảng Tuần Hoàn",
+  "description": "Trò chơi học tập môn Hóa học lớp 7 bài Nguyên tử và 20 nguyên tố đầu tiên theo chương trình GDPT 2018, chấm điểm tự động và đồng bộ Google Sheets 2 chiều.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
