@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { StudentInfo } from '../types/chemistry';
-import { UserCheck, GraduationCap, School, Hash, ArrowRight, BookOpen } from 'lucide-react';
+import { UserCheck, GraduationCap, School, Hash, ArrowRight, BookOpen, X } from 'lucide-react';
 
 interface Props {
   initialInfo?: StudentInfo | null;
   onSave: (info: StudentInfo) => void;
+  onClose?: () => void;
   isOpen: boolean;
 }
 
-export const StudentInfoModal: React.FC<Props> = ({ initialInfo, onSave, isOpen }) => {
+export const StudentInfoModal: React.FC<Props> = ({ initialInfo, onSave, onClose, isOpen }) => {
   const [fullName, setFullName] = useState(initialInfo?.fullName || '');
   const [className, setClassName] = useState(initialInfo?.className || '7A1');
   const [studentId, setStudentId] = useState(
@@ -45,18 +46,30 @@ export const StudentInfoModal: React.FC<Props> = ({ initialInfo, onSave, isOpen 
         {/* Decorative background circle */}
         <div className="absolute -top-12 -right-12 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/30">
-            <GraduationCap className="w-6 h-6" />
+        <div className="flex items-center justify-between gap-3 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/30">
+              <GraduationCap className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-indigo-600 tracking-wider uppercase">
+                Bắt đầu bài tập trực tuyến
+              </span>
+              <h2 className="text-xl sm:text-2xl font-black text-slate-800">
+                Thông Tin Thí Sinh
+              </h2>
+            </div>
           </div>
-          <div>
-            <span className="text-xs font-bold text-indigo-600 tracking-wider uppercase">
-              Bắt đầu bài tập trực tuyến
-            </span>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-800">
-              Thông Tin Thí Sinh
-            </h2>
-          </div>
+
+          {onClose && (
+            <button
+              onClick={onClose}
+              type="button"
+              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
 
         <p className="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">

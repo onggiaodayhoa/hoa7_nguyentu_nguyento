@@ -54,14 +54,6 @@ import {
 } from 'lucide-react';
 
 export default function App() {
-  // Navigation & Modals state
-  const [activeTab, setActiveTab] = useState<'quiz' | 'cards_game' | 'atom_viewer' | 'teacher_portal'>('quiz');
-  const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
-  const [isSheetsSetupOpen, setIsSheetsSetupOpen] = useState(false);
-  const [isElementsModalOpen, setIsElementsModalOpen] = useState(false);
-  const [isBodyElementsModalOpen, setIsBodyElementsModalOpen] = useState(false);
-  const [isConceptMapModalOpen, setIsConceptMapModalOpen] = useState(false);
-
   // Student Profile state
   const [student, setStudent] = useState<StudentInfo | null>(() => {
     try {
@@ -71,6 +63,20 @@ export default function App() {
       return null;
     }
   });
+
+  // Navigation & Modals state
+  const [activeTab, setActiveTab] = useState<'quiz' | 'cards_game' | 'atom_viewer' | 'teacher_portal'>('quiz');
+  const [isStudentModalOpen, setIsStudentModalOpen] = useState<boolean>(() => {
+    try {
+      return !localStorage.getItem('hoa7_current_student');
+    } catch {
+      return true;
+    }
+  });
+  const [isSheetsSetupOpen, setIsSheetsSetupOpen] = useState(false);
+  const [isElementsModalOpen, setIsElementsModalOpen] = useState(false);
+  const [isBodyElementsModalOpen, setIsBodyElementsModalOpen] = useState(false);
+  const [isConceptMapModalOpen, setIsConceptMapModalOpen] = useState(false);
 
   // Google Sheets Sync Config
   const [syncConfig, setSyncConfig] = useState<GoogleSyncConfig>(getSavedConfig);
@@ -740,6 +746,7 @@ export default function App() {
         isOpen={isStudentModalOpen}
         initialInfo={student}
         onSave={handleSaveStudent}
+        onClose={() => setIsStudentModalOpen(false)}
       />
 
       <GoogleSheetsSetupModal
